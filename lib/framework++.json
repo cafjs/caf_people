@@ -1,0 +1,52 @@
+{
+    "name": "top",
+    "env" : {
+        "appPublisher" :"process.env.APP_PUBLISHER||root",
+        "appLocalName" : "process.env.APP_LOCAL_NAME||people",
+        "appSuffix" : "process.env.APP_SUFFIX||cafjs.com"
+     },
+    "components": [
+        {
+            "name": "log",
+            "env" : {
+                "logLevel" : "DEBUG"
+            }
+        },
+        {
+            "name": "cp2"
+        },
+        {
+            "module": "caf_users#plug",
+            "name": "users",
+            "description": "Manage user profiles\n",
+            "env": {
+               "defaultUnits" : "process.env.DEFAULT_UNITS||3",
+                "defaultTimePerUnit" : "process.env.DEFAULT_TIME_PER_UNIT||15",
+                "appWriterFraction" : "process.env.APP_WRITER_FRACTION||0.4",
+                "appPublishCost" : "process.env.APP_PUBLISH_COST||1",
+                "appName" : "process.env.APP_USERS_NAME||null",
+                "paas" : "$._.env.redisPaaS",
+                "redis" : {
+                    "password" : "$._.env.redisPassword",
+                    "port" : "process.env.REDIS_PORT_6379_TCP_PORT||6379",
+                    "hostname" : "process.env.REDIS_PORT_6379_TCP_ADDR||localhost"
+                },
+                "coalescing" : {
+                    "interval" : 10,
+                    "maxPendingUpdates" : 10
+                }
+            }
+        },
+        {
+            "name" : "react",
+            "module": "caf_react#plug",
+            "description": "React.js background rendering",
+            "env": {
+                "appFileName" : "../public/index.html",
+                "separator" : "<section id=\"content\">",
+                "cacheService" : "cp",
+                "expiresInSec" : 60
+            }
+        }
+    ]
+}
