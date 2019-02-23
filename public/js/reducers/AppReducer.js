@@ -3,7 +3,7 @@ var AppConstants = require('../constants/AppConstants');
 var AppReducer = function(state, action) {
     if (typeof state === 'undefined') {
         return  {counter: -1, userInfo: {user: -1, apps: {}, cas: {}},
-                 username : null, isClosed: false,
+                 username : null, isClosed: false, allUsers: [], deltaUnits: 1,
                  privileged: false, error: null, changeUnitsId: null};
     } else {
         switch(action.type) {

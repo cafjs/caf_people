@@ -12,6 +12,7 @@
       "react" : "^16.6.0",
       "react-dom" : "^16.6.0",
       "react-bootstrap" : "^0.32.4",
+      "react-select" : "^2.3.0",
       "keymirror": "^0.1.0",
       "redux": "^3.7.2"
    },

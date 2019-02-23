@@ -1,200 +1,106 @@
 var React = require('react');
 var rB = require('react-bootstrap');
+var Select = require('react-select').default;
 var cE = React.createElement;
 var AppActions = require('../actions/AppActions');
-var OpConstants = require('../constants/OpConstants');
-
-const EXAMPLE_IMAGE = 'gcr.io/cafjs-k8/root-helloworld';
 
 class ManagementPanel extends React.Component {
     constructor(props) {
         super(props);
 
-        this.visible = {};
-        // Op -> [name, #instances, image]
-        this.visible[OpConstants.DEPLOY] = [true, true, true];
-        this.visible[OpConstants.FLEX] = [true, true, false];
-        this.visible[OpConstants.RESTART] = [true, false, false];
-        this.visible[OpConstants.DELETE] = [true, false, false];
-
-        this.handleAppNameChange = this.handleAppNameChange.bind(this);
-        this.handleImageChange = this.handleImageChange.bind(this);
-        this.handleInstancesChange = this.handleInstancesChange.bind(this);
-        this.handleChangeOp = this.handleChangeOp.bind(this);
-        this.handleGo = this.handleGo.bind(this);
+        this.handleDeltaUnits = this.handleDeltaUnits.bind(this);
+        this.doChangeUnits = this.doChangeUnits.bind(this);
+        this.handleSelectChange = this.handleSelectChange.bind(this);
     }
 
-    doDeploy(ev) {
-        if (this.props.appName && (typeof this.props.appName === 'string') &&
-            this.props.image && (typeof this.props.image === 'string') &&
-            (typeof this.props.instances === 'number')) {
-            AppActions.addApp(this.props.ctx, this.props.appName,
-                              this.props.image,
-                              this.props.instances, null);
-        } else {
-            console.log('Error: cannot deploy, missing inputs ' +
-                        JSON.stringify({appName: this.props.appName,
-                                        image: this.props.image,
-                                        instances: this.props.instances}));
-            AppActions.setError(this.props.ctx,
-                                new Error('Cannot deploy, missing inputs'));
-        }
-    }
-
-    doFlex(ev) {
-        if (this.props.appName && (typeof this.props.appName === 'string') &&
-            (typeof this.props.instances === 'number')) {
-            AppActions.flexApp(this.props.ctx, this.props.appName,
-                               this.props.instances);
-        } else {
-            console.log('Error: cannot flex, missing inputs ' +
-                        JSON.stringify(this.props));
-            AppActions.setError(this.props.ctx,
-                                new Error('Cannot flex, missing inputs'));
-        }
-    }
-
-    doDelete(ev) {
-        if (this.props.appName && (typeof this.props.appName === 'string')) {
-            AppActions.deleteApp(this.props.ctx, this.props.appName);
-        } else {
-            console.log('Error: cannot delete, missing inputs ' +
-                        JSON.stringify(this.props));
-            AppActions.setError(this.props.ctx,
-                                new Error('Cannot delete, missing inputs'));
-        }
-    }
-
-    doRestart(ev) {
-        if (this.props.appName && (typeof this.props.appName === 'string')) {
-            AppActions.restartApp(this.props.ctx, this.props.appName);
-        } else {
-            console.log('Error: cannot delete, missing inputs ' +
-                        JSON.stringify(this.props));
-            AppActions.setError(this.props.ctx,
-                                new Error('Cannot restart, missing inputs'));
-        }
-    }
-
-    handleGo(ev) {
-        switch (this.props.op) {
-        case OpConstants.DEPLOY:
-            this.doDeploy(ev);
-            break;
-        case OpConstants.FLEX:
-            this.doFlex(ev);
-            break;
-        case OpConstants.RESTART:
-            this.doRestart(ev);
-            break;
-        case OpConstants.DELETE:
-            this.doDelete(ev);
-            break;
-        default:
-            console.log('Error: Invalid op ' + this.props.op);
-        }
-    }
-
-    handleAppNameChange (ev) {
+    handleDeltaUnits(ev) {
+        var deltaUnits = parseFloat(ev.target.value);
+        deltaUnits = (isNaN(deltaUnits) ? ev.target.value : deltaUnits);
         AppActions.setLocalState(this.props.ctx, {
-            appName: ev.target.value
+            deltaUnits: deltaUnits
         });
     }
 
-    handleImageChange (ev) {
-        AppActions.setLocalState(this.props.ctx, {
-            image: ev.target.value
-        });
+    doChangeUnits(ev) {
+        if (this.props.username && (typeof this.props.username === 'string') &&
+            (typeof this.props.deltaUnits === 'number')) {
+            AppActions.changeUnits(this.props.ctx, this.props.deltaUnits);
+        } else {
+            console.log('Error: cannot change units, missing inputs ' +
+                        JSON.stringify(this.props));
+            AppActions.setError(this.props.ctx,
+                                new Error('Cannot change units, bad inputs'));
+        }
     }
 
-    handleInstancesChange (ev) {
-        var instances = parseInt(ev.target.value);
-        instances = (isNaN(instances) ? ev.target.value : instances);
-        AppActions.setLocalState(this.props.ctx, {
-            instances: instances
-        });
-    }
-
-    handleChangeOp(e) {
-        AppActions.setLocalState(this.props.ctx, { op: e });
+    handleSelectChange(user) {
+        var username = user.value;
+        if (username && (typeof username === 'string')) {
+            AppActions.changeUsername(this.props.ctx, username);
+        } else {
+            console.log('Error: cannot change user, missing inputs ' +
+                        JSON.stringify(username));
+            AppActions.setError(this.props.ctx,
+                                new Error('Cannot change user, bad inputs'));
+        }
     }
 
     render() {
-        var isVisible = this.visible[this.props.op];
-        var fields = [
-            cE(rB.Col, { xs:12, sm:4, key:2355},
+        var fields = (this.props.privileged ? [
+            cE(rB.Col, { xs: 12, sm: 8, key: 2355},
                cE(rB.FormGroup, {
-                   controlId: 'appNameId'
+                   controlId: 'deltaUnitsId'
                },
-                  cE(rB.ControlLabel, null, 'App Local Name'),
+                  cE(rB.ControlLabel, null, 'Change Units'),
                   cE(rB.FormControl, {
                       type: 'text',
-                      value: this.props.appName,
-                      placeholder: 'helloworld',
-                      onChange: this.handleAppNameChange
+                      value: this.props.deltaUnits,
+                      placeholder: '+1 or -1',
+                      onChange: this.handleDeltaUnits
                   })
                  )
               ),
-            cE(rB.Col, { xs:12, sm:4, key:2356},
-               cE(rB.FormGroup, {
-                   controlId: 'instancesId'
-               },
-                  cE(rB.ControlLabel, null, '# App Instances'),
-                  cE(rB.FormControl, {
-                      type: 'text',
-                      value: this.props.instances,
-                      placeholder: '1',
-                      onChange: this.handleInstancesChange
-                  })
-                 )
-              ),
-            cE(rB.Col, { xs:12, sm:4, key:2357},
-               cE(rB.FormGroup, {
-                   controlId: 'imageId'
-               },
-                  cE(rB.ControlLabel, null, 'Docker image'),
-                  cE(rB.FormControl, {
-                      type: 'text',
-                      value: this.props.image,
-                      placeholder: EXAMPLE_IMAGE,
-                      onChange: this.handleImageChange
-                  })
-                 )
+            cE(rB.Col, {xs: 6, sm: 4, key: 2111},
+               cE(rB.Button, {
+                   onClick: this.doChangeUnits,
+                   bsStyle: 'danger'
+               }, 'Change')
               )
-        ].filter((x, i) => isVisible[i]);
+        ] : []);
 
+        var allUsers = this.props.allUsers || [];
+        allUsers = allUsers.map(x => ({value: x, label: x}));
 
         return cE(rB.Grid, {fluid: true},
                   cE(rB.Row, null,
-                     cE(rB.Col, {xs:12, sm:12},
-                        cE(rB.ButtonToolbar, {className: 'extra-margin-bottom'},
-                           cE(rB.ToggleButtonGroup, {
-                               type: 'radio',
-                               name: 'operations',
-                               value: this.props.op,
-                               onChange: this.handleChangeOp
-                           },
-                              cE(rB.ToggleButton, {value: OpConstants.DEPLOY},
-                                 'Deploy'),
-                              cE(rB.ToggleButton, {value: OpConstants.FLEX},
-                                 'Flex'),
-                              cE(rB.ToggleButton, {value: OpConstants.RESTART},
-                                 'Reset'),
-                              cE(rB.ToggleButton, {value: OpConstants.DELETE},
-                                 'Delete')
-                             )
+                     cE(rB.Col, {xs:8, sm:8},
+                        cE(rB.FormGroup, {controlId: 'selectId'},
+                            cE(rB.ControlLabel, null, 'Username'),
+                           (this.props.privileged ?
+                            cE(Select, {options: allUsers,
+                                        instanceId: 'management-panel-1',
+                             //           value: this.props.username,
+                                        onChange: this.handleSelectChange}) :
+                            cE(rB.FormControl, {
+                                readOnly: true,
+                                type: 'text',
+                                value: this.props.username
+                            })
+                           )
+                          )
+                       ),
+                     cE(rB.Col, {xs:4 , sm: 4},
+                        cE(rB.FormGroup, {controlId: 'unitsId'},
+                            cE(rB.ControlLabel, null, 'Units'),
+                            cE(rB.FormControl, {
+                                readOnly: true,
+                                type: 'text',
+                                value: this.props.units
+                            })
                           )
                        )
                     ),
-                  cE(rB.Row, null, fields),
-                  cE(rB.Row, null,
-                     cE(rB.Col, {xs: 6, sm: 3},
-                        cE(rB.Button, {
-                            onClick: this.handleGo,
-                            bsStyle: 'danger'
-                        }, 'Go')
-                       )
-                    )
+                  cE(rB.Row, {className: 'row-center-align'}, fields)
                  );
     }
 };

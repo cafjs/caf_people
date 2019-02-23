@@ -2,34 +2,28 @@ var React = require('react');
 var rB = require('react-bootstrap');
 var cE = React.createElement;
 
-class TableApps extends React.Component {
+class TableCAs extends React.Component {
     constructor(props) {
         super(props);
     }
 
     render() {
         var self = this;
-        var renderOneRow = function(i, appName, app) {
-            var tasksRunning = app.stat && parseInt(app.stat.tasksRunning);
-            tasksRunning = ((typeof tasksRunning ===  'number') &&
-                            (!isNaN(tasksRunning)) ? tasksRunning : '?');
-            var runningStyle  = ((app.instances === tasksRunning) ?
-                                 {key:10*i+5, 'className':'text-success'} :
-                                 {key:10*i+5, 'className':'text-danger'});
-            var version = app.stat && app.stat.version || '?';
+        var now = (new Date()).getTime()/1000.0;
+        var renderOneRow = function(i, caName, caInfo) {
+            var diff = parseFloat(caInfo) - now;
             return  cE('tr', {key:10*i},
-                       cE('td', {key:10*i+1}, appName),
-//                       cE('td', {key:10*i+2}, app.id),
-                       cE('td', {key:10*i+4}, app.instances),
-                       cE('td', runningStyle, tasksRunning),
-                       cE('td', {key:10*i+3}, app.image),
-                       cE('td', {key:10*i+6}, version)
+                       cE('td', {key:10*i+1}, caName),
+                       (diff > 0 ? cE('td', {key:10*i+4}, diff) :
+                        cE('td', {key:10*i+4,
+                                  style: {background: "red", color: "white"}},
+                           diff))
                       );
         };
         var renderRows = function() {
-            var sorted = Object.keys(self.props.apps || {}).sort();
+            var sorted = Object.keys(self.props.cas || {}).sort();
             return sorted.map(function(x, i) {
-                return renderOneRow(i+1, x, self.props.apps[x]);
+                return renderOneRow(i+1, x, self.props.cas[x]);
             });
         };
         return cE(rB.Table, {striped: true, responsive: true, bordered: true,
@@ -37,11 +31,7 @@ class TableApps extends React.Component {
                   cE('thead', {key:0},
                      cE('tr', {key:1},
                         cE('th', {key:2}, 'Name'),
-//                        cE('th', {key:3}, 'ID'),
-                        cE('th', {key:5}, '#'),
-                        cE('th', {key:6}, 'OK'),
-                        cE('th', {key:4}, 'Image'),
-                        cE('th', {key:7}, 'Version')
+                        cE('th', {key:5}, 'Time Left (sec)')
                        )
                     ),
                   cE('tbody', {key:8}, renderRows())
@@ -49,4 +39,4 @@ class TableApps extends React.Component {
     }
 };
 
-module.exports = TableApps;
+module.exports = TableCAs;

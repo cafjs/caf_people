@@ -71,9 +71,12 @@ class MyApp extends React.Component {
                            cE(rB.Panel.Body, null,
                               cE(ManagementPanel, {
                                   ctx: this.props.ctx,
-                                  user: this.state.userInfo.user,
+                                  units: this.state.userInfo.user || 0,
                                   username: this.state.username,
+                                  allUsers: this.state.allUsers,
                                   privileged: this.state.privileged,
+                                  pendingId: this.state.pendingId,
+                                  deltaUnits: this.state.deltaUnits,
                                   changeUnitsId: this.state.changeUnitsId
                               })
                              )

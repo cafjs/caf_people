@@ -21,7 +21,7 @@ class NewError extends React.Component {
                       className : "bg-warning text-warning",
                       closeButton: true
                   }, cE(rB.Modal.Title, null, "Error")),
-                  cE(rB.ModalBody, null,
+                  cE(rB.Modal.Body, null,
                      cE('p', null, 'Message:'),
                      cE(rB.Alert, {bsStyle: 'danger'},
                         this.props.error && this.props.error.message)

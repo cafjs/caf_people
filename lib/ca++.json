@@ -46,7 +46,9 @@
                 {
                     "name": "props",
                     "env" : {
-                        "pulsesForReload": "process.env.PULSES_FOR_RELOAD||5"
+                        "pulsesForReload": "process.env.PULSES_FOR_RELOAD||5",
+                        "validCANames": "process.env.VALID_CA_NAMES||[\"me\",\"admin\"]"
+
                     }
                 }
             ]
