@@ -9,15 +9,15 @@ class TableCAs extends React.Component {
 
     render() {
         var self = this;
-        var now = (new Date()).getTime()/1000.0;
+        var now = (new Date()).getTime()/(24*60*60*1000);
         var renderOneRow = function(i, caName, caInfo) {
             var diff = parseFloat(caInfo) - now;
             return  cE('tr', {key:10*i},
                        cE('td', {key:10*i+1}, caName),
-                       (diff > 0 ? cE('td', {key:10*i+4}, diff) :
+                       (diff > 0 ? cE('td', {key:10*i+4}, diff.toFixed(2)) :
                         cE('td', {key:10*i+4,
                                   style: {background: "red", color: "white"}},
-                           diff))
+                           diff.toFixed(2)))
                       );
         };
         var renderRows = function() {
@@ -31,7 +31,7 @@ class TableCAs extends React.Component {
                   cE('thead', {key:0},
                      cE('tr', {key:1},
                         cE('th', {key:2}, 'Name'),
-                        cE('th', {key:5}, 'Time Left (sec)')
+                        cE('th', {key:5}, 'Time Left (days)')
                        )
                     ),
                   cE('tbody', {key:8}, renderRows())

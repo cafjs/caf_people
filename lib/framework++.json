@@ -27,10 +27,10 @@
             "name": "users",
             "description": "Manage user profiles\n",
             "env": {
-               "defaultUnits" : "process.env.DEFAULT_UNITS||3",
-                "defaultTimePerUnit" : "process.env.DEFAULT_TIME_PER_UNIT||15",
+               "defaultUnits" : "process.env.DEFAULT_UNITS||10",
+                "defaultTimePerUnit" : "process.env.DEFAULT_TIME_PER_UNIT||30",
                 "appWriterFraction" : "process.env.APP_WRITER_FRACTION||0.4",
-                "appPublishCost" : "process.env.APP_PUBLISH_COST||1",
+                "appPublishCost" : "process.env.APP_PUBLISH_COST||2",
                 "appName" : "process.env.APP_USERS_NAME||null",
                 "preRegisterUsers" : ["foo", "root"],
                 "preRegisterApp" : ["root","process.env.PRE_REGISTER_APP_LOCAL_NAME||"],

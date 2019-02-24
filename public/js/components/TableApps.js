@@ -26,7 +26,7 @@ class TableApps extends React.Component {
                   cE('thead', {key:0},
                      cE('tr', {key:1},
                         cE('th', {key:2}, 'Name'),
-                        cE('th', {key:5}, 'Cost (sec/unit)')
+                        cE('th', {key:5}, 'Cost (days/unit)')
                        )
                     ),
                   cE('tbody', {key:8}, renderRows())
