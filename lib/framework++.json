@@ -33,7 +33,7 @@
                 "appPublishCost" : "process.env.APP_PUBLISH_COST||2",
                 "appName" : "process.env.APP_USERS_NAME||null",
                 "preRegisterUsers" : ["foo", "root"],
-                "preRegisterApp" : ["root","process.env.PRE_REGISTER_APP_LOCAL_NAME||"],
+                "preRegisterApp" : ["root","gadget", "root","process.env.PRE_REGISTER_APP_LOCAL_NAME||"],
                 "paas" : "$._.env.redisPaaS",
                 "redis" : {
                     "password" : "$._.env.redisPassword",
