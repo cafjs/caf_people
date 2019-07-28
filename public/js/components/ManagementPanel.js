@@ -11,6 +11,9 @@ class ManagementPanel extends React.Component {
         this.handleDeltaUnits = this.handleDeltaUnits.bind(this);
         this.doChangeUnits = this.doChangeUnits.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
+        this.doTransfer = this.doTransfer.bind(this);
+        this.doAccept = this.doAccept.bind(this);
+        this.doQuery = this.doQuery.bind(this);
     }
 
     handleDeltaUnits(ev) {
@@ -18,6 +21,24 @@ class ManagementPanel extends React.Component {
         deltaUnits = (isNaN(deltaUnits) ? ev.target.value : deltaUnits);
         AppActions.setLocalState(this.props.ctx, {
             deltaUnits: deltaUnits
+        });
+    }
+
+    doTransfer(ev) {
+        AppActions.setLocalState(this.props.ctx, {
+            transferMode: true
+        });
+    }
+
+    doAccept(ev) {
+        AppActions.setLocalState(this.props.ctx, {
+            acceptMode: true
+        });
+    }
+
+    doQuery(ev) {
+        AppActions.setLocalState(this.props.ctx, {
+            queryMode: true
         });
     }
 
@@ -73,7 +94,7 @@ class ManagementPanel extends React.Component {
 
         return cE(rB.Grid, {fluid: true},
                   cE(rB.Row, null,
-                     cE(rB.Col, {xs:8, sm:8},
+                     cE(rB.Col, {xs:8, sm:4},
                         cE(rB.FormGroup, {controlId: 'selectId'},
                             cE(rB.ControlLabel, null, 'Username'),
                            (this.props.privileged ?
@@ -89,7 +110,7 @@ class ManagementPanel extends React.Component {
                            )
                           )
                        ),
-                     cE(rB.Col, {xs:4 , sm: 4},
+                     cE(rB.Col, {xs:4 , sm:4},
                         cE(rB.FormGroup, {controlId: 'unitsId'},
                             cE(rB.ControlLabel, null, 'Units'),
                             cE(rB.FormControl, {
@@ -97,6 +118,26 @@ class ManagementPanel extends React.Component {
                                 type: 'text',
                                 value: this.props.units
                             })
+                          )
+                       ),
+                     cE(rB.Col, {xs:12 , sm:4},
+                        cE(rB.FormGroup, {controlId: 'exchangeId'},
+                           cE(rB.ControlLabel, null, 'Exchange'),
+                           cE(rB.ButtonGroup, {block:true},
+                              cE(rB.Button,  {
+                                  onClick: this.doTransfer,
+                                  bsStyle: 'danger'
+                           }, 'Transfer'),
+                              cE(rB.Button,  {
+                                  onClick: this.doAccept,
+                                  bsStyle: (this.props.pendingAccepts ?
+                                            'warning' : 'primary')
+                              }, 'Accept'),
+                              cE(rB.Button,  {
+                                  onClick: this.doQuery,
+                                  bsStyle: 'info'
+                              }, 'Query')
+                             )
                           )
                        )
                     ),

@@ -29,6 +29,7 @@
             "env": {
                "defaultUnits" : "process.env.DEFAULT_UNITS||10",
                 "defaultTimePerUnit" : "process.env.DEFAULT_TIME_PER_UNIT||30",
+                "defaultHoldTimeInSec" : "process.env.DEFAULT_HOLD_TIME_IN_SEC||3600",
                 "appWriterFraction" : "process.env.APP_WRITER_FRACTION||0.4",
                 "appPublishCost" : "process.env.APP_PUBLISH_COST||2",
                 "appName" : "process.env.APP_USERS_NAME||null",

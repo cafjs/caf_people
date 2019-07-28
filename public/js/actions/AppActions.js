@@ -74,8 +74,11 @@ var AppActions = {
     }
 };
 
-['changeUsername', 'cleanError', 'registerCA', 'registerApp', 'refreshUsers',
- 'filterUsers', 'changeUnits', 'getState'].forEach(function(x) {
+[
+    'changeUsername', 'cleanError', 'registerCA', 'registerApp', 'refreshUsers',
+    'filterUsers', 'changeUnits', 'getState', 'queryStats', 'transferUnits',
+    'releaseTransfer', 'acceptTransfer', 'disputeTransfer'
+].forEach(function(x) {
      AppActions[x] = async function() {
          var args = Array.prototype.slice.call(arguments);
          var ctx = args.shift();

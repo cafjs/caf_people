@@ -6,6 +6,9 @@ var TableCAs = require('./TableCAs');
 var AppStatus = require('./AppStatus');
 var NewError = require('./NewError');
 var ManagementPanel = require('./ManagementPanel');
+var Transfer = require('./Transfer');
+var Accept = require('./Accept');
+var Query = require('./Query');
 
 var cE = React.createElement;
 
@@ -37,8 +40,33 @@ class MyApp extends React.Component {
     }
 
     render() {
+        var pendingAccepts = this.state.userInfo.accepts &&
+                (Object.keys(this.state.userInfo.accepts).length > 0);
+
         return cE("div", {className: "container-fluid"},
-                  cE(NewError, {ctx: this.props.ctx, error: this.state.error}),
+                  cE(Transfer, {
+                      ctx: this.props.ctx,
+                      transferMode: this.state.transferMode,
+                      transferUsername: this.state.transferUsername,
+                      transferUnits: this.state.transferUnits,
+                      transfers: this.state.userInfo.offers || {}
+                  }),
+                  cE(Accept, {
+                      ctx: this.props.ctx,
+                      acceptMode: this.state.acceptMode,
+                      accepts: this.state.userInfo.accepts || {}
+                  }),
+                  cE(Query, {
+                      ctx: this.props.ctx,
+                      queryMode: this.state.queryMode,
+                      queryUsername: this.state.queryUsername,
+                      myStats: this.state.userInfo.reputation,
+                      stats: this.state.stats
+                  }),
+                  cE(NewError, {
+                      ctx: this.props.ctx, error: this.state.error
+                  }),
+
                   cE(rB.Panel, null,
                      cE(rB.Panel.Heading, null,
                         cE(rB.Panel.Title, null,
@@ -77,7 +105,8 @@ class MyApp extends React.Component {
                                   privileged: this.state.privileged,
                                   pendingId: this.state.pendingId,
                                   deltaUnits: this.state.deltaUnits,
-                                  changeUnitsId: this.state.changeUnitsId
+                                  changeUnitsId: this.state.changeUnitsId,
+                                  pendingAccepts: pendingAccepts
                               })
                              )
                           ),
