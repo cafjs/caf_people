@@ -41,12 +41,31 @@
             ]
         },
         {
+            "module": "caf_appinfo#plug_ca",
+            "name": "appInfo",
+            "description": "Manages an app info service for a CA",
+            "env" : {
+                "maxRetries" : "$._.env.maxRetries",
+                "retryDelay" : "$._.env.retryDelay"
+            },
+            "components" : [
+                {
+                    "module": "caf_appinfo#proxy",
+                    "name": "proxy",
+                    "description": "Enables access to an app info service",
+                    "env" : {
+                    }
+                }
+            ]
+        },
+        {
             "name": "handler",
             "components" : [
                 {
                     "name": "props",
                     "env" : {
-                        "pulsesForReload": "process.env.PULSES_FOR_RELOAD||5",
+                        "pulsesForUserInfoReload": "process.env.PULSES_FOR_USER_INFO_RELOAD||5",
+                        "pulsesForAppInfoReload": "process.env.PULSES_FOR_APP_INFO_RELOAD||3600",
                         "validCANames": "process.env.VALID_CA_NAMES||[\"me\",\"admin\"]"
 
                     }

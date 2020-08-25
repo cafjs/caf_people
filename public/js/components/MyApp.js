@@ -1,16 +1,19 @@
-var React = require('react');
-var rB = require('react-bootstrap');
-var AppActions = require('../actions/AppActions');
-var TableApps = require('./TableApps');
-var TableCAs = require('./TableCAs');
-var AppStatus = require('./AppStatus');
-var NewError = require('./NewError');
-var ManagementPanel = require('./ManagementPanel');
-var Transfer = require('./Transfer');
-var Accept = require('./Accept');
-var Query = require('./Query');
+'use strict';
 
-var cE = React.createElement;
+const React = require('react');
+const rB = require('react-bootstrap');
+const AppActions = require('../actions/AppActions');
+const TableApps = require('./TableApps');
+const TableCAs = require('./TableCAs');
+const AppStatus = require('./AppStatus');
+const NewError = require('./NewError');
+const ManagementPanel = require('./ManagementPanel');
+const Transfer = require('./Transfer');
+const Accept = require('./Accept');
+const Query = require('./Query');
+const AppInfo = require('./AppInfo');
+
+const cE = React.createElement;
 
 class MyApp extends React.Component {
     constructor(props) {
@@ -40,10 +43,14 @@ class MyApp extends React.Component {
     }
 
     render() {
-        var pendingAccepts = this.state.userInfo.accepts &&
+        const pendingAccepts = this.state.userInfo.accepts &&
                 (Object.keys(this.state.userInfo.accepts).length > 0);
 
         return cE("div", {className: "container-fluid"},
+                  cE(AppInfo, {
+                      ctx: this.props.ctx,
+                      appInfo: this.state.appInfo
+                  }),
                   cE(Transfer, {
                       ctx: this.props.ctx,
                       transferMode: this.state.transferMode,
@@ -115,7 +122,10 @@ class MyApp extends React.Component {
                               cE(rB.Panel.Title, null, "Applications")
                              ),
                            cE(rB.Panel.Body, null,
-                              cE(TableApps, {apps: this.state.userInfo.apps})
+                              cE(TableApps, {
+                                  ctx: this.props.ctx,
+                                  apps: this.state.userInfo.apps
+                              })
                              )
                           ),
                         cE(rB.Panel, null,

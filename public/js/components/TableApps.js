@@ -1,6 +1,7 @@
 var React = require('react');
 var rB = require('react-bootstrap');
 var cE = React.createElement;
+var AppActions = require('../actions/AppActions');
 
 class TableApps extends React.Component {
     constructor(props) {
@@ -12,7 +13,15 @@ class TableApps extends React.Component {
         var renderOneRow = function(i, appName, appInfo) {
             return  cE('tr', {key:10*i},
                        cE('td', {key:10*i+1}, appName),
-                       cE('td', {key:10*i+4}, appInfo)
+                       cE('td', {key:10*i+4}, appInfo),
+                       cE('td', {key:10*i+5},
+                          cE(rB.Button, {
+                              onClick: (ev) => {
+                                  AppActions.getAppInfo(self.props.ctx,
+                                                        appName);
+                              },
+                              bsStyle: 'primary'
+                          }, 'Show'))
                       );
         };
         var renderRows = function() {
@@ -26,7 +35,8 @@ class TableApps extends React.Component {
                   cE('thead', {key:0},
                      cE('tr', {key:1},
                         cE('th', {key:2}, 'Name'),
-                        cE('th', {key:5}, 'Cost (days/unit)')
+                        cE('th', {key:5}, 'Cost (days/unit)'),
+                        cE('th', {key:7}, 'Stats')
                        )
                     ),
                   cE('tbody', {key:8}, renderRows())

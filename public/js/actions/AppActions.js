@@ -77,7 +77,7 @@ var AppActions = {
 [
     'changeUsername', 'cleanError', 'registerCA', 'registerApp', 'refreshUsers',
     'filterUsers', 'changeUnits', 'getState', 'queryStats', 'transferUnits',
-    'releaseTransfer', 'acceptTransfer', 'disputeTransfer'
+    'releaseTransfer', 'acceptTransfer', 'disputeTransfer','getAppInfo'
 ].forEach(function(x) {
      AppActions[x] = async function() {
          var args = Array.prototype.slice.call(arguments);

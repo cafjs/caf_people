@@ -123,7 +123,7 @@ class ManagementPanel extends React.Component {
                      cE(rB.Col, {xs:12 , sm:4},
                         cE(rB.FormGroup, {controlId: 'exchangeId'},
                            cE(rB.ControlLabel, null, 'Exchange'),
-                           cE(rB.ButtonGroup, {block:true},
+                           cE(rB.ButtonGroup, {block: true},
                               cE(rB.Button,  {
                                   onClick: this.doTransfer,
                                   bsStyle: 'danger'

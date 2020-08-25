@@ -58,6 +58,16 @@
                 "cacheService" : "cp",
                 "expiresInSec" : 60
             }
+        },
+        {
+            "name": "appInfo",
+            "module": "caf_appinfo#plug",
+            "description": "App Info service.",
+            "env" : {
+                "appInfoDir" : "process.env.APP_INFO_DIR||null",
+                "appInfoFile" : "process.env.APP_INFO_FILE||appInfo.json"
+            }
         }
+
     ]
 }
