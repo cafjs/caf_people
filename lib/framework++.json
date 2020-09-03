@@ -27,7 +27,8 @@
             "name": "users",
             "description": "Manage user profiles\n",
             "env": {
-               "defaultUnits" : "process.env.DEFAULT_UNITS||10",
+                "reloadUsersIntervalInSec" : "process.env.RELOAD_USERS_INTERVAL_IN_SEC||3600",
+                "defaultUnits" : "process.env.DEFAULT_UNITS||10",
                 "defaultTimePerUnit" : "process.env.DEFAULT_TIME_PER_UNIT||30",
                 "defaultHoldTimeInSec" : "process.env.DEFAULT_HOLD_TIME_IN_SEC||3600",
                 "appWriterFraction" : "process.env.APP_WRITER_FRACTION||0.4",
@@ -64,6 +65,7 @@
             "module": "caf_appinfo#plug",
             "description": "App Info service.",
             "env" : {
+                "reloadAppInfoIntervalInSec" : "process.env.RELOAD_APP_INFO_INTERVAL_IN_SEC||3600",
                 "appInfoDir" : "process.env.APP_INFO_DIR||null",
                 "appInfoFile" : "process.env.APP_INFO_FILE||appInfo.json"
             }

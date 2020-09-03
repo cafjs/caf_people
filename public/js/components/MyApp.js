@@ -12,6 +12,7 @@ const Transfer = require('./Transfer');
 const Accept = require('./Accept');
 const Query = require('./Query');
 const AppInfo = require('./AppInfo');
+const AppUsage = require('./AppUsage');
 
 const cE = React.createElement;
 
@@ -50,6 +51,10 @@ class MyApp extends React.Component {
                   cE(AppInfo, {
                       ctx: this.props.ctx,
                       appInfo: this.state.appInfo
+                  }),
+                  cE(AppUsage, {
+                      ctx: this.props.ctx,
+                      appUsage: this.state.appUsage
                   }),
                   cE(Transfer, {
                       ctx: this.props.ctx,
@@ -113,7 +118,9 @@ class MyApp extends React.Component {
                                   pendingId: this.state.pendingId,
                                   deltaUnits: this.state.deltaUnits,
                                   changeUnitsId: this.state.changeUnitsId,
-                                  pendingAccepts: pendingAccepts
+                                  pendingAccepts: pendingAccepts,
+                                  cost: this.state.cost,
+                                  appNameCost: this.state.appNameCost
                               })
                              )
                           ),

@@ -8,8 +8,9 @@ const AppReducer = function(state, action) {
                  username : null, isClosed: false, allUsers: [], deltaUnits: 1,
                  privileged: false, error: null, changeUnitsId: null,
                  transferMode: false, queryMode: false, acceptMode: false,
-                 queryUsername: '', appInfo: null,
-                 transferUsername: '', transferUnits: 0,
+                 queryUsername: '', appInfo: null, appUsage: null,
+                 transferUsername: '', transferUnits: 0, cost: null,
+                 appNameCost: '',
                  stats: {}};
     } else {
         switch(action.type) {

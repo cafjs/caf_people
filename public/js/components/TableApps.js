@@ -15,13 +15,23 @@ class TableApps extends React.Component {
                        cE('td', {key:10*i+1}, appName),
                        cE('td', {key:10*i+4}, appInfo),
                        cE('td', {key:10*i+5},
-                          cE(rB.Button, {
-                              onClick: (ev) => {
-                                  AppActions.getAppInfo(self.props.ctx,
-                                                        appName);
-                              },
-                              bsStyle: 'primary'
-                          }, 'Show'))
+                          cE(rB.ButtonGroup, null,
+                             cE(rB.Button, {
+                                 onClick: (ev) => {
+                                     AppActions.getAppInfo(self.props.ctx,
+                                                           appName);
+                                 },
+                                 bsStyle: 'primary'
+                             }, 'Resources'),
+                             cE(rB.Button, {
+                                 onClick: (ev) => {
+                                     AppActions.getAppUsage(self.props.ctx,
+                                                            appName);
+                                 },
+                                 bsStyle: 'info'
+                             }, 'Users')
+                            )
+                         )
                       );
         };
         var renderRows = function() {

@@ -65,7 +65,7 @@
                     "name": "props",
                     "env" : {
                         "pulsesForUserInfoReload": "process.env.PULSES_FOR_USER_INFO_RELOAD||5",
-                        "pulsesForAppInfoReload": "process.env.PULSES_FOR_APP_INFO_RELOAD||3600",
+                        "computeAppUsageIntervalInSec": "process.env.COMPUTE_APP_USAGE_INTERVAL_IN_SEC||86400",
                         "validCANames": "process.env.VALID_CA_NAMES||[\"me\",\"admin\"]"
 
                     }

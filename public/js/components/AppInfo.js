@@ -235,7 +235,7 @@ class AppInfo extends React.Component {
                        )
                     ),
                   cE(rB.Modal.Footer, null,
-                     cE(rB.Button, {onClick: this.doDismiss}, "Continue")
+                     cE(rB.Button, {onClick: this.doDismiss}, 'Continue')
                     )
                  );
     }
