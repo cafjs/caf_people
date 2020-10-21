@@ -23,11 +23,42 @@
             "name": "cp2"
         },
         {
+            "module": "caf_bank#plug",
+            "name": "bank",
+            "description": "Manage money transactions\n",
+            "env": {
+                "appName" : "process.env.APP_USERS_NAME||null",
+                "paas" : "$._.env.redisPaaS",
+                "redis" : {
+                    "password" : "$._.env.redisPassword",
+                    "port" : "process.env.REDIS_PORT_6379_TCP_PORT||6379",
+                    "hostname" : "process.env.REDIS_PORT_6379_TCP_ADDR||localhost"
+                },
+                "coalescing" : {
+                    "interval" : 10,
+                    "maxPendingUpdates" : 10
+                },
+                "compressState": "process.env.COMPRESS_STATE||true"
+            }
+        },
+        {
+            "module": "caf_paypal#plug",
+            "name": "paypal",
+            "description": "Manage PayPal transactions\n",
+            "env": {
+                "fixExpense": "process.env.FIX_EXPENSE||0.3",
+                "expensePerDollar": "process.env.EXPENSE_PER_DOLLAR||0.029",
+                "payPalFile": "process.env.PAYPAL_FILE||paypal.json",
+                "payPalDir": "process.env.PAYPAL_DIR||null"
+            }
+        },
+        {
             "module": "caf_users#plug",
             "name": "users",
             "description": "Manage user profiles\n",
             "env": {
                 "reloadUsersIntervalInSec" : "process.env.RELOAD_USERS_INTERVAL_IN_SEC||3600",
+                "accountsApp" : "$._.env.accountsApp",
                 "defaultUnits" : "process.env.DEFAULT_UNITS||10",
                 "defaultTimePerUnit" : "process.env.DEFAULT_TIME_PER_UNIT||30",
                 "defaultHoldTimeInSec" : "process.env.DEFAULT_HOLD_TIME_IN_SEC||3600",
