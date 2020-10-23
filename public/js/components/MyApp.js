@@ -13,6 +13,7 @@ const Accept = require('./Accept');
 const Query = require('./Query');
 const AppInfo = require('./AppInfo');
 const AppUsage = require('./AppUsage');
+const Buy = require('./Buy');
 
 const cE = React.createElement;
 
@@ -74,6 +75,11 @@ class MyApp extends React.Component {
                       queryUsername: this.state.queryUsername,
                       myStats: this.state.userInfo.reputation,
                       stats: this.state.stats
+                  }),
+                  cE(Buy, {
+                      ctx: this.props.ctx,
+                      buyMode: this.state.buyMode,
+                      buyUnits: this.state.buyUnits
                   }),
                   cE(NewError, {
                       ctx: this.props.ctx, error: this.state.error

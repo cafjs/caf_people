@@ -73,6 +73,9 @@ const AppActions = {
     },
     setError(ctx, err) {
         errorF(ctx.store, err);
+    },
+    createOrder(ctx, units) {
+        return ctx.session.createOrder(units).getPromise();
     }
 };
 

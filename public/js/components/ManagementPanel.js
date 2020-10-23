@@ -14,6 +14,7 @@ class ManagementPanel extends React.Component {
         this.doTransfer = this.doTransfer.bind(this);
         this.doAccept = this.doAccept.bind(this);
         this.doQuery = this.doQuery.bind(this);
+        this.doBuy = this.doBuy.bind(this);
 
         this.handleAppNameCost = this.handleAppNameCost.bind(this);
         this.handleCost = this.handleCost.bind(this);
@@ -74,6 +75,12 @@ class ManagementPanel extends React.Component {
     doQuery(ev) {
         AppActions.setLocalState(this.props.ctx, {
             queryMode: true
+        });
+    }
+
+    doBuy(ev) {
+        AppActions.setLocalState(this.props.ctx, {
+            buyMode: true
         });
     }
 
@@ -173,7 +180,7 @@ class ManagementPanel extends React.Component {
 
         return cE(rB.Grid, {fluid: true},
                   cE(rB.Row, null,
-                     cE(rB.Col, {xs:8, sm:4},
+                     cE(rB.Col, {xs:8, sm:3},
                         cE(rB.FormGroup, {controlId: 'selectId'},
                             cE(rB.ControlLabel, null, 'Username'),
                            (this.props.privileged ?
@@ -189,7 +196,7 @@ class ManagementPanel extends React.Component {
                            )
                           )
                        ),
-                     cE(rB.Col, {xs:4 , sm:4},
+                     cE(rB.Col, {xs:4 , sm:3},
                         cE(rB.FormGroup, {controlId: 'unitsId'},
                             cE(rB.ControlLabel, null, 'Units'),
                             cE(rB.FormControl, {
@@ -199,7 +206,7 @@ class ManagementPanel extends React.Component {
                             })
                           )
                        ),
-                     cE(rB.Col, {xs:12 , sm:4},
+                     cE(rB.Col, {xs:8 , sm:3},
                         cE(rB.FormGroup, {controlId: 'exchangeId'},
                            cE(rB.ControlLabel, null, 'Exchange'),
                            cE(rB.ButtonGroup, {block: true},
@@ -216,6 +223,17 @@ class ManagementPanel extends React.Component {
                                   onClick: this.doQuery,
                                   bsStyle: 'info'
                               }, 'Query')
+                             )
+                          )
+                       ),
+                     cE(rB.Col, {xs:4 , sm:3},
+                        cE(rB.FormGroup, {controlId: 'payId'},
+                           cE(rB.ControlLabel, null, 'Purchase'),
+                           cE(rB.ButtonGroup, {block: true},
+                              cE(rB.Button,  {
+                                  onClick: this.doBuy,
+                                  bsStyle: 'danger'
+                              }, 'Buy')
                              )
                           )
                        )
