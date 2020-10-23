@@ -14,7 +14,6 @@ class Buy extends React.Component {
         this.onButtonReady = this.onButtonReady.bind(this);
         this.onApprove= this.onApprove(this);
         this.state = {showLoading: true};
-
     }
 
     handleBuyUnits(ev) {
@@ -22,25 +21,49 @@ class Buy extends React.Component {
         AppActions.setLocalState(this.props.ctx, {
             buyUnits: (isNaN(units) ? '' : units)
         });
+
+        if (!isNaN(units)) {
+            AppActions.getPrice(this.props.ctx, units);
+        } else {
+            AppActions.setLocalState(this.props.ctx, {
+                price: ''
+            });
+        }
     }
 
     async createOrder(data, actions) {
-        if (this.props.buyUnits && (typeof this.props.buyUnits === 'number')) {
-            const order = await AppActions.createOrder(this.props.ctx,
-                                                    this.props.buyUnits);
-            return order.id;
-        } else {
-            console.log('Error: cannot buy units, bad inputs ' +
-                        JSON.stringify(this.props));
-            AppActions.setError(this.props.ctx,
-                                new Error('Cannot buy units, bad inputs'));
+        try {
+            if (this.props.buyUnits &&
+                (typeof this.props.buyUnits === 'number')) {
+                const order = await AppActions.createOrder(this.props.ctx,
+                                                           this.props.buyUnits);
+                return order.id;
+            } else {
+                console.log('Error: cannot buy units, bad inputs ' +
+                            JSON.stringify(this.props));
+                AppActions.setError(this.props.ctx,
+                                    new Error('Cannot buy units, bad inputs'));
+                return null;
+            }
+        } catch (err) {
+            console.log('Error: cannot buy units, got error ' + err);
+            AppActions.setError(this.props.ctx, err);
             return null;
         }
     }
 
-    onApprove(data, actions) {
-
-
+    async onApprove(data, actions) {
+        try {
+            const order = await AppActions.captureOrder(this.props.ctx,
+                                                        data.orderID);
+            AppActions.setLocalState(this.props.ctx, {
+                capturedOrder: order
+            });
+            this.doDismiss();
+        } catch (err) {
+            console.log('Error: cannot capture funds, got error ' + err);
+            AppActions.setError(this.props.ctx, err);
+        }
     }
 
     onButtonReady() {
@@ -66,17 +89,29 @@ class Buy extends React.Component {
                         cE(rB.Row, null,
                            cE(rB.Form, {horizontal: true},
                               cE(rB.FormGroup, {controlId: 'formBuyUnits'},
-                                 cE(rB.Col, {sm:2, xs:3},
+                                 cE(rB.Col, {sm:2, xs:4},
                                     cE(rB.ControlLabel, null, 'Units')
                                    ),
-                                 cE(rB.Col, {sm:4, xs:6},
+                                 cE(rB.Col, {sm:3, xs:8},
                                     cE(rB.FormControl, {
                                         type: 'text',
                                         value: this.props.buyUnits,
                                         placeholder: 'units',
                                         onChange: this.handleBuyUnits
                                     })),
-                                 cE(rB.Col, {sm:2, xs:3},
+                                 cE(rB.Col, {sm:2, xs:4},
+                                    cE(rB.ControlLabel, null, 'Price')
+                                   ),
+                                 cE(rB.Col, {sm:3, xs:8},
+                                    cE(rB.FormControl, {
+                                        type: 'text',
+                                        value: this.props.price ?
+                                            `$${this.props.price}` :
+                                            this.props.price,
+                                        readOnly: true,
+                                        placeholder: '$'
+                                    })),
+                                 cE(rB.Col, {sm:2, xs:4},
                                     [
                                         (this.state.showLoading ?
                                          cE('span', {key: 33},

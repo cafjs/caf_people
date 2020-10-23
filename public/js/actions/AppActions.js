@@ -76,6 +76,9 @@ const AppActions = {
     },
     createOrder(ctx, units) {
         return ctx.session.createOrder(units).getPromise();
+    },
+    captureOrder(ctx, id) {
+        return ctx.session.captureOrder(id).getPromise();
     }
 };
 
@@ -83,7 +86,7 @@ const AppActions = {
     'changeUsername', 'cleanError', 'registerCA', 'registerApp', 'refreshUsers',
     'filterUsers', 'changeUnits', 'getState', 'queryStats', 'transferUnits',
     'releaseTransfer', 'acceptTransfer', 'disputeTransfer','getAppInfo',
-    'computeAppUsage', 'getAppUsage', 'updateApp'
+    'computeAppUsage', 'getAppUsage', 'updateApp', 'getPrice'
 ].forEach(function(x) {
      AppActions[x] = async function() {
          const args = Array.prototype.slice.call(arguments);

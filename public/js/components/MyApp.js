@@ -79,7 +79,8 @@ class MyApp extends React.Component {
                   cE(Buy, {
                       ctx: this.props.ctx,
                       buyMode: this.state.buyMode,
-                      buyUnits: this.state.buyUnits
+                      buyUnits: this.state.buyUnits,
+                      price: this.state.price
                   }),
                   cE(NewError, {
                       ctx: this.props.ctx, error: this.state.error

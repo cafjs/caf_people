@@ -10,6 +10,7 @@ const AppReducer = function(state, action) {
                  transferMode: false, queryMode: false, acceptMode: false,
                  queryUsername: '', appInfo: null, appUsage: null,
                  transferUsername: '', transferUnits: 0, cost: null,
+                 price: '', capturedOrder: null,
                  appNameCost: '', buyMode: false, buyUnits: '',
                  stats: {}};
     } else {
