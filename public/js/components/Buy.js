@@ -110,8 +110,10 @@ class Buy extends React.Component {
                                             this.props.price,
                                         readOnly: true,
                                         placeholder: '$'
-                                    })),
-                                 cE(rB.Col, {sm:2, xs:4},
+                                    }))
+                                ),
+                              cE(rB.FormGroup, {controlId: 'formPayPal'},
+                                 cE(rB.Col, {sm:12, xs:12},
                                     [
                                         (this.state.showLoading ?
                                          cE('span', {key: 33},
