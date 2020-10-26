@@ -12,7 +12,7 @@ class Buy extends React.Component {
         this.handleBuyUnits = this.handleBuyUnits.bind(this);
         this.createOrder = this.createOrder.bind(this);
         this.onButtonReady = this.onButtonReady.bind(this);
-        this.onApprove= this.onApprove(this);
+        this.onApprove= this.onApprove.bind(this);
         this.state = {showLoading: true};
     }
 
@@ -54,12 +54,16 @@ class Buy extends React.Component {
 
     async onApprove(data, actions) {
         try {
-            const order = await AppActions.captureOrder(this.props.ctx,
-                                                        data.orderID);
-            AppActions.setLocalState(this.props.ctx, {
-                capturedOrder: order
-            });
-            this.doDismiss();
+            if (!data.orderID) {
+                console.log('Ignoring onApprove() with no order id');
+            } else {
+                const order = await AppActions.captureOrder(this.props.ctx,
+                                                            data.orderID);
+                AppActions.setLocalState(this.props.ctx, {
+                    capturedOrder: order
+                });
+                this.doDismiss();
+            }
         } catch (err) {
             console.log('Error: cannot capture funds, got error ' + err);
             AppActions.setError(this.props.ctx, err);
