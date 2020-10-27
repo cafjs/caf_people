@@ -3,7 +3,7 @@ const rB = require('react-bootstrap');
 const cE = React.createElement;
 const paypal = require('react-paypal-button-v2');
 const AppActions = require('../actions/AppActions');
-
+const TableOrders = require('./TableOrders');
 
 class Buy extends React.Component {
     constructor(props) {
@@ -132,6 +132,14 @@ class Buy extends React.Component {
                                             }
                                         })
                                     ].filter(x => !!x)
+                                   )
+                                ),
+                              cE(rB.FormGroup, {controlId: 'formPayPal'},
+                                 cE(rB.Col, {sm:12, xs:12},
+                                    cE(TableOrders, {
+                                        pendingOrders: this.props.pendingOrders,
+                                        orders: this.props.orders
+                                    })
                                    )
                                 )
                              )

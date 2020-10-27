@@ -81,7 +81,9 @@ class MyApp extends React.Component {
                       buyMode: this.state.buyMode,
                       buyUnits: this.state.buyUnits,
                       price: this.state.price,
-                      clientId: this.state.clientId
+                      clientId: this.state.clientId,
+                      pendingOrders: this.state.pendingOrders,
+                      orders: this.state.orders
                   }),
                   cE(NewError, {
                       ctx: this.props.ctx, error: this.state.error
