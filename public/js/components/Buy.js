@@ -126,7 +126,10 @@ class Buy extends React.Component {
                                             key: 53,
                                             createOrder: this.createOrder,
                                             onApprove: this.onApprove,
-                                            onButtonReady: this.onButtonReady
+                                            onButtonReady: this.onButtonReady,
+                                            options: {
+                                                clientId: this.props.clientId
+                                            }
                                         })
                                     ].filter(x => !!x)
                                    )
