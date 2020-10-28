@@ -13,6 +13,11 @@ class Buy extends React.Component {
         this.createOrder = this.createOrder.bind(this);
         this.onButtonReady = this.onButtonReady.bind(this);
         this.onApprove= this.onApprove.bind(this);
+        this.doBuy20 = this.doBuy20.bind(this);
+        this.doBuy30 = this.doBuy30.bind(this);
+        this.doBuy50 = this.doBuy50.bind(this);
+        this.doBuy75 = this.doBuy75.bind(this);
+        this.doBuy100 = this.doBuy100.bind(this);
         this.state = {showLoading: true};
     }
 
@@ -60,9 +65,11 @@ class Buy extends React.Component {
                 const order = await AppActions.captureOrder(this.props.ctx,
                                                             data.orderID);
                 AppActions.setLocalState(this.props.ctx, {
-                    capturedOrder: order
+                    capturedOrder: order,
+                    confirmation : true
                 });
                 this.doDismiss();
+
             }
         } catch (err) {
             console.log('Error: cannot capture funds, got error ' + err);
@@ -80,6 +87,26 @@ class Buy extends React.Component {
         });
     }
 
+    doBuy20() {
+        this.handleBuyUnits({target: {value: '20'}});
+    }
+
+    doBuy30() {
+        this.handleBuyUnits({target: {value: '30'}});
+    }
+
+    doBuy50() {
+        this.handleBuyUnits({target: {value: '50'}});
+    }
+
+    doBuy75() {
+        this.handleBuyUnits({target: {value: '75'}});
+    }
+
+    doBuy100() {
+        this.handleBuyUnits({target: {value: '100'}});
+    }
+
     render() {
         return cE(rB.Modal,{show: !!this.props.buyMode,
                             onHide: this.doDismiss,
@@ -87,11 +114,34 @@ class Buy extends React.Component {
                   cE(rB.Modal.Header, {
                       className : 'bg-warning text-warning',
                       closeButton: true
-                  }, cE(rB.Modal.Title, null, 'Purchase units')),
+                  }, cE(rB.Modal.Title, null, 'Purchase units: $0.1/unit + ' +
+                        'fees')),
                   cE(rB.Modal.Body, null,
                      cE(rB.Grid, {fluid: true},
                         cE(rB.Row, null,
                            cE(rB.Form, {horizontal: true},
+                              cE(rB.FormGroup, {controlId: 'buyButtons'},
+                                 cE(rB.Col, {sm:10, smOffset: 2, xs:8,
+                                             xsOffset: 4},
+                                    cE(rB.ButtonGroup, null,
+                                       cE(rB.Button, {
+                                           onClick: this.doBuy20
+                                       }, '20'),
+                                       cE(rB.Button, {
+                                           onClick: this.doBuy30
+                                       }, '30'),
+                                       cE(rB.Button, {
+                                           onClick: this.doBuy50
+                                       }, '50'),
+                                        cE(rB.Button, {
+                                           onClick: this.doBuy75
+                                       }, '75'),
+                                       cE(rB.Button, {
+                                           onClick: this.doBuy100
+                                       }, '100')
+                                      )
+                                   )
+                                ),
                               cE(rB.FormGroup, {controlId: 'formBuyUnits'},
                                  cE(rB.Col, {sm:2, xs:4},
                                     cE(rB.ControlLabel, null, 'Units')

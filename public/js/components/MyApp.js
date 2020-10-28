@@ -14,6 +14,7 @@ const Query = require('./Query');
 const AppInfo = require('./AppInfo');
 const AppUsage = require('./AppUsage');
 const Buy = require('./Buy');
+const Confirmation = require('./Confirmation');
 
 const cE = React.createElement;
 
@@ -84,6 +85,11 @@ class MyApp extends React.Component {
                       clientId: this.state.clientId,
                       pendingOrders: this.state.pendingOrders,
                       orders: this.state.orders
+                  }),
+                  cE(Confirmation, {
+                      ctx: this.props.ctx,
+                      capturedOrder: this.state.capturedOrder,
+                      confirmation: this.state.confirmation
                   }),
                   cE(NewError, {
                       ctx: this.props.ctx, error: this.state.error

@@ -196,7 +196,7 @@ class ManagementPanel extends React.Component {
                            )
                           )
                        ),
-                     cE(rB.Col, {xs:4 , sm:3},
+                     cE(rB.Col, {xs:4 , sm:2},
                         cE(rB.FormGroup, {controlId: 'unitsId'},
                             cE(rB.ControlLabel, null, 'Units'),
                             cE(rB.FormControl, {
@@ -206,7 +206,7 @@ class ManagementPanel extends React.Component {
                             })
                           )
                        ),
-                     cE(rB.Col, {xs:8 , sm:3},
+                     cE(rB.Col, {xs:12 , sm:5},
                         cE(rB.FormGroup, {controlId: 'exchangeId'},
                            cE(rB.ControlLabel, null, 'Exchange'),
                            cE(rB.ButtonGroup, {block: true},
@@ -226,7 +226,7 @@ class ManagementPanel extends React.Component {
                              )
                           )
                        ),
-                     cE(rB.Col, {xs:4 , sm:3},
+                     cE(rB.Col, {xs:4 , sm:2},
                         cE(rB.FormGroup, {controlId: 'payId'},
                            cE(rB.ControlLabel, null, 'Purchase'),
                            cE(rB.ButtonGroup, {block: true},
