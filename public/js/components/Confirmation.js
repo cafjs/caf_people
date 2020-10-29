@@ -27,8 +27,8 @@ class Confirmation extends React.Component {
                       closeButton: true
                   }, cE(rB.Modal.Title, null, "Order confirmation")),
                   cE(rB.Modal.Body, null,
-                     cE('p', null, 'Thanks for your purchase.'),
-                     cE('p', null,
+                     cE('h4', null, 'Thanks for your purchase.'),
+                     cE('h4', null,
                         `${units} units have been added to your account.`),
                      cE(rB.Table, {striped: true, responsive: true,
                                    bordered: true,

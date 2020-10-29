@@ -104,6 +104,8 @@
                     "env" : {
                         "pulsesForUserInfoReload": "process.env.PULSES_FOR_USER_INFO_RELOAD||5",
                         "computeAppUsageIntervalInSec": "process.env.COMPUTE_APP_USAGE_INTERVAL_IN_SEC||86400",
+                        "pulsesForCaptureRetry" : "process.env.PULSES_FOR_USER_INFO_RELOAD||60",
+                        "orderExpireTimeInSec" : "process.env.ORDER_EXPIRE_TIME_IN_SEC||3600",
                         "validCANames": "process.env.VALID_CA_NAMES||[\"me\",\"admin\"]"
 
                     }
