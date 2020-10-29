@@ -109,7 +109,9 @@ class MyApp extends React.Component {
                                      sm: 5,
                                      xs:10,
                                      className: 'text-right'
-                                 }, "People"),
+                                 }, 'People' + (this.state.bankBalance ?
+                                                ' $' + this.state.bankBalance :
+                                                '')),
                                  cE(rB.Col, {
                                      sm: 5,
                                      xs:11,
