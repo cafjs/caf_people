@@ -13,11 +13,11 @@ class Buy extends React.Component {
         this.createOrder = this.createOrder.bind(this);
         this.onButtonReady = this.onButtonReady.bind(this);
         this.onApprove= this.onApprove.bind(this);
-        this.doBuy20 = this.doBuy20.bind(this);
-        this.doBuy30 = this.doBuy30.bind(this);
         this.doBuy50 = this.doBuy50.bind(this);
         this.doBuy75 = this.doBuy75.bind(this);
         this.doBuy100 = this.doBuy100.bind(this);
+        this.doBuy200 = this.doBuy200.bind(this);
+        this.doBuy300 = this.doBuy300.bind(this);
         this.state = {showLoading: true};
     }
 
@@ -87,14 +87,6 @@ class Buy extends React.Component {
         });
     }
 
-    doBuy20() {
-        this.handleBuyUnits({target: {value: '20'}});
-    }
-
-    doBuy30() {
-        this.handleBuyUnits({target: {value: '30'}});
-    }
-
     doBuy50() {
         this.handleBuyUnits({target: {value: '50'}});
     }
@@ -105,6 +97,14 @@ class Buy extends React.Component {
 
     doBuy100() {
         this.handleBuyUnits({target: {value: '100'}});
+    }
+
+    doBuy200() {
+        this.handleBuyUnits({target: {value: '200'}});
+    }
+
+    doBuy300() {
+        this.handleBuyUnits({target: {value: '300'}});
     }
 
     render() {
@@ -125,12 +125,6 @@ class Buy extends React.Component {
                                              xsOffset: 4},
                                     cE(rB.ButtonGroup, null,
                                        cE(rB.Button, {
-                                           onClick: this.doBuy20
-                                       }, '20'),
-                                       cE(rB.Button, {
-                                           onClick: this.doBuy30
-                                       }, '30'),
-                                       cE(rB.Button, {
                                            onClick: this.doBuy50
                                        }, '50'),
                                         cE(rB.Button, {
@@ -138,7 +132,13 @@ class Buy extends React.Component {
                                        }, '75'),
                                        cE(rB.Button, {
                                            onClick: this.doBuy100
-                                       }, '100')
+                                       }, '100'),
+                                       cE(rB.Button, {
+                                           onClick: this.doBuy200
+                                       }, '200'),
+                                       cE(rB.Button, {
+                                           onClick: this.doBuy300
+                                       }, '300')
                                       )
                                    )
                                 ),
