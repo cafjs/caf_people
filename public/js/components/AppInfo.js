@@ -62,7 +62,9 @@ const processData = function(data) {
             patchArray(result, data.app.egressActual, 'egressActualApp');
         }
 
-        return result;
+        return (result.length > 1) ?
+            result.slice(0, -1) : // last value with partial results aggregated
+            result;
     } else {
         return null;
     }
@@ -112,7 +114,9 @@ class AppInfo extends React.Component {
                      cE(rC.ResponsiveContainer, {height: HEIGHT, width: '100%'},
                         cE(rC.LineChart, {data},
                            [
-                               cE(rC.XAxis, {key: 1000, dataKey: 'days'},
+                               cE(rC.XAxis, {key: 1000, dataKey: 'days',
+                                             type: 'number',
+                                             allowDecimals: false},
                                   cE(rC.Label, {
                                       value: (this.state.isRedis ?
                                               'Redis: Days after ' :

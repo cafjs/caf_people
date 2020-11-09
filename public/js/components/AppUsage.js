@@ -48,7 +48,8 @@ class AppUsage extends React.Component {
                   cE(rB.ModalBody, null,
                      cE(rC.ResponsiveContainer, {height: HEIGHT, width: '100%'},
                         cE(rC.LineChart, {data},
-                           cE(rC.XAxis, {dataKey: 'days'},
+                           cE(rC.XAxis, {dataKey: 'days', type: 'number',
+                                         allowDecimals: false},
                               cE(rC.Label, {
                                   value: 'Days after ' + startDate,
                                   position: 'insideBottom',
