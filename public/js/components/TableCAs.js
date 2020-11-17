@@ -14,7 +14,7 @@ class TableCAs extends React.Component {
             var diff = parseFloat(caInfo) - now;
             return  cE('tr', {key:10*i},
                        cE('td', {key:10*i+1}, caName),
-                       (diff > 0 ? cE('td', {key:10*i+4}, diff.toFixed(2)) :
+                       (diff >= 0 ? cE('td', {key:10*i+4}, diff.toFixed(2)) :
                         cE('td', {key:10*i+4,
                                   style: {background: "red", color: "white"}},
                            diff.toFixed(2)))
