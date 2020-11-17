@@ -114,7 +114,7 @@ class Buy extends React.Component {
                   cE(rB.Modal.Header, {
                       className : 'bg-warning text-warning',
                       closeButton: true
-                  }, cE(rB.Modal.Title, null, 'Purchase units: $0.1/unit + ' +
+                  }, cE(rB.Modal.Title, null, 'Caf.js units: $0.1/unit + ' +
                         'fees')),
                   cE(rB.Modal.Body, null,
                      cE(rB.Grid, {fluid: true},
