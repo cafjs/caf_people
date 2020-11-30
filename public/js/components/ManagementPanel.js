@@ -177,6 +177,9 @@ class ManagementPanel extends React.Component {
 
         let allUsers = this.props.allUsers || [];
         allUsers = allUsers.map(x => ({value: x, label: x}));
+        const unitFix = typeof this.props.units === 'number' ?
+            this.props.units.toFixed(2) :
+            this.props.units;
 
         return cE(rB.Grid, {fluid: true},
                   cE(rB.Row, null,
@@ -202,7 +205,7 @@ class ManagementPanel extends React.Component {
                             cE(rB.FormControl, {
                                 readOnly: true,
                                 type: 'text',
-                                value: this.props.units
+                                value: unitFix
                             })
                           )
                        ),
