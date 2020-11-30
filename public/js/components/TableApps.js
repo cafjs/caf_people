@@ -18,7 +18,10 @@ class TableApps extends React.Component {
 
             return  cE('tr', {key:10*i},
                        cE('td', {key:10*i+1}, appName),
-                       cE('td', {key:10*i+4}, appInfo.cost),
+                       cE('td', {key:10*i+4}, appInfo.cost + 'd/u'),
+                       cE('td', {key:10*i+7}, appInfo.plan),
+                       cE('td', {key:10*i+8}, '' +
+                          Math.trunc(appInfo.profit*100) + '%'),
                        cE('td', {key:10*i+5},
                           cE(rB.ButtonGroup, null,
                              cE(rB.Button, {
@@ -38,10 +41,10 @@ class TableApps extends React.Component {
                             )
                          ),
                        (diff >= 0 ?
-                        cE('td', {key:10*i+6}, diffFix) :
+                        cE('td', {key:10*i+6}, `${diffFix}d`) :
                         cE('td', {key:10*i+6,
                                   style: {background: "red", color: "white"}},
-                           diffFix))
+                           `${diffFix}d`))
                       );
         };
 
@@ -57,9 +60,11 @@ class TableApps extends React.Component {
                   cE('thead', {key:0},
                      cE('tr', {key:1},
                         cE('th', {key:2}, 'Name'),
-                        cE('th', {key:5}, 'Cost (days/unit)'),
+                        cE('th', {key:5}, 'Price'),
+                        cE('th', {key: 32000}, 'Plan'),
+                        cE('th', {key: 32001}, 'Profit'),
                         cE('th', {key:7}, 'Stats'),
-                        cE('th', {key:8}, 'Time Left (days)')
+                        cE('th', {key:8}, 'Renew')
                        )
                     ),
                   cE('tbody', {key:8}, renderRows())
