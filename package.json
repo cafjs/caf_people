@@ -9,6 +9,8 @@
       "caf_users" : "^0.4.0",
       "caf_core": "^0.4.0",
       "caf_transport" : "^0.4.0",
+      "caf_paypal" : "^0.4.0",
+      "@paypal/checkout-server-sdk": "^1.0.2",
       "caf_cli": "^0.4.0",
       "react" : "^16.6.0",
       "react-dom" : "^16.6.0",
@@ -27,9 +29,7 @@
     "scripts": {
        "start" : "node ./index.js",
         "test": "node ./node_modules/.bin/nodeunit",
-        "build-js" : "browserify  -d public/js/main.js -o public/js/build.js",
-        "build-min-js" : "export NODE_ENV=production; browserify public/js/main.js | uglifyjs > public/js/build.min.js",
-        "build": "yarn run build-js && yarn run build-min-js"
+        "build":  "./bin/build.sh"
     },
    "main": "index",
   "engines": { "node": ">= 8.0.0" }
